@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator</title>
+    <!-- Linking font awesome for icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <!-- style sheet -->
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+    <!-- normalize.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo-wrapper">
+                <div class="logo">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <h1>AI Image Generator</h1>
+            </div>
+            <button type="button" class="theme-toggle">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </header>
+        <div class="main-content">
+            <form action="#" class="prompt-form">
+                <div class="prompt-container">
+                    <textarea class="prompt-input" placeholder="Describe your imagination in detail..." required autofocus></textarea>
+                    <button class="prompt-btn">
+                        <i class="fa-solid fa-dice"></i>
+                    </button>
+                </div>
+
+                <!-- Prompt Actions/Buttons -->
+                 <div class="prompt-actions">
+                    <div class="select-wrapper">
+                        <select class="custom-select" id="model-select" required>
+                            <option value="" selected disabled>Select Model</option>
+                           <!--  <option value="black-forest-labs/FLUX.1-dev">FULX.1-dev</option>
+                            <option value="ByteDance/Hyper-SD">ByteDance / Hyper SD</option> -->
+
+                            <option value="stabilityai/stable-diffusion-xl-base-1.0">Stable Diffusion XL</option>
+
+                            <!-- <option value="stabilityai/stable-diffusion-2-1">Stable Diffusion-2-1</option>
+ -->
+                            <option value="runwayml/stable-diffusion-v1-5">Runwayml / Stable Diffusion-v1-5</option>
+                        </select>
+                    </div>
+
+                    <div class="select-wrapper">
+                        <select class="custom-select" id="count-select" required>
+                            <option value="" selected disabled>Image Count</option>
+                            <option value="1">1 Image</option>
+                            <option value="2">2 Images</option>
+                            <option value="3">3 Images</option>
+                            <option value="4">4 Images</option>
+                        </select>
+                    </div>
+
+                    <div class="select-wrapper">
+                        <select class="custom-select" id="ratio-select" required>
+                            <option value="" selected disabled>Aspect Ratio</option>
+                            <option value="1/1">(1:1)</option>
+                            <option value="16/9">Landscap (16:9)</option>
+                            <option value="9/16">Portrait (9:16)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="generate-btn">
+                        <i class="fa-solid fa-wand-sparkles"></i>
+                        Generate
+                    </button>
+                 </div>
+                 
+                 <!-- Result Gallery Grid -->
+                 <div class="gallery-grid"></div>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
