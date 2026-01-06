@@ -26,6 +26,13 @@ app.post("/api/generate-image", async(req, res) => {
 
             })
         });
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.log("API Error:", response.status, errorText);
+            return res.status(response.status).json({ error: errorText || "Image generation failed" });
+        }
+        
         const data = await response.arrayBuffer();
         res.set("Content-Type", "image/png");
         res.send(Buffer.from(data));
