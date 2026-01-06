@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.static("public"));
 const API_KEY = process.env.api_KEY;
 
-app.post("/api/gererate", async(req, res) => {
+app.post("/api/generate-image", async(req, res) => {
     const { model, prompt, width, height } = req.body;
 
     try {
@@ -28,6 +28,7 @@ app.post("/api/gererate", async(req, res) => {
         });
         const data = await response.arrayBuffer();
         res.set("Content-Type", "image/png");
+        res.send(Buffer.from(data));
     } catch (error) {
         console.log(error);
 
