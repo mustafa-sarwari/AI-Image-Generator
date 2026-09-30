@@ -74,7 +74,7 @@ const updateImageCards = (imgIndex, imgUrl) => {
 
 const generateImages = async (selectedMethod, imageCount, aspectRatio, promptText) => {
     // Use the Hugging Face inference API endpoint (client-side use requires a token and is not recommended for production)
-    const MODEL_URL =`https://api-inference.huggingface.co/models/${selectedMethod}`;
+    
 
 const {width, height} = getImageDimenstions(aspectRatio);
 
@@ -85,7 +85,7 @@ generatetBtn.setAttribute("disabled", "true");
 const imagePromises = Array.from({length: imageCount}, async(_, i) => {
     //send request to the AI model API
     try {
-        const response =  await fetch('http://localhost:3000/api/generate-image', {
+        const response =  await fetch('/api/generate-image', {
             
 			method:'POST',
             headers: {
@@ -152,7 +152,7 @@ const imagePromises = Array.from({length: imageCount}, async(_, i) => {
 
         const imgCard = document.getElementById(`img-card-${i}`);
         imgCard.classList.replace("loading", "error");
-        imgCard.querySelector(".status-text").textContent = "Generation failed! Check console for more details."
+        imgCard.querySelector(".status-text").textContent = error.message
     }
     })
     
@@ -161,7 +161,8 @@ const imagePromises = Array.from({length: imageCount}, async(_, i) => {
 }
 
 const createImageCards = (selectedMethod, imageCount, aspectRatio, promptText) => {
-gridGallery.innerHTML = "";
+gridGallery.querySelectorAll('img').forEach(img => { if (img.src.startsWith('blob:')) URL.revokeObjectURL(img.src); });
+ gridGallery.innerHTML = "";
 
     for (let i = 0; i < imageCount; i++) {
         gridGallery.innerHTML += `<div class="img-card loading" id="img-card-${i}" style="aspect-ratio: ${aspectRatio}">
@@ -191,7 +192,8 @@ const handleFormSubmit = (e) => {
     const aspectRatio = ratioSelect.value || "1/1";
     const promptText = promptInput.value.trim();
 
-    createImageCards(selectedMethod, imageCount, aspectRatio, promptText)
+    if (!promptText || !selectedMethod || generatetBtn.disabled) return;
+    createImageCards(selectedMethod, Math.min(imageCount, 4), aspectRatio, promptText)
 }
  
 //Fill prompt input with random example

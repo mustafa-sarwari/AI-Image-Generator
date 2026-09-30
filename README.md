@@ -1,48 +1,24 @@
-# AI Image Generator — Prototype
+# AI image generation demo
 
-A JavaScript and Express prototype for a prompt-based image generation interface. The browser UI is served from `public/`; the backend is intended to call a Hugging Face inference endpoint.
+The frontend posts prompts to the matching backend route and displays binary image responses. The server validates prompt/model/dimensions, handles provider failures, and reads the Hugging Face token from the environment.
 
-## Stack
+## Run the full-stack demo
 
-HTML, CSS, JavaScript, Node.js, Express, dotenv, and node-fetch.
-
-## Local setup
+Requires Node.js 24 or newer.
 
 ```bash
-git clone https://github.com/mustafa-sarwari/AI-Image-Generator.git
-cd AI-Image-Generator
 npm install
-```
-
-Configure your local `config/.env` with the variable read by the current server:
-
-```dotenv
-api_KEY=your_hugging_face_token
-```
-
-Keep credentials local and out of commits.
-
-```bash
+cp config/.env.example config/.env
+# Set HF_TOKEN in config/.env
 npm start
 ```
 
-The server listens at `http://localhost:3000`.
+Open http://localhost:3000. Run `npm test` for mocked provider and validation tests. Live generation requires a working provider token and supported model; it has not been verified with a live token. Never commit the environment file.
 
-## Current limitations
+## Implementation and scope
 
-- The server reads the upstream response into an array buffer but does not send those bytes in its successful response. End-to-end image generation is therefore incomplete.
-- The request handler is currently named `/api/gererate` in server.js.
-- The upstream integration, model availability, and request format need verification before the project is presented as working.
-- The existing npm test command is a placeholder, not an automated test suite.
+`server.js` contains the Express API; `script.js` contains the frontend request flow. This is a local provider integration demo, not a production image service.
 
-## Code organization
+## Learning context
 
-- `public/`: browser interface, scripts, and styles
-- `server.js`: static server and inference request handler
-- `config/`: local configuration location
-
-## Next steps
-
-Complete the response path, handle upstream failures, validate request inputs, remove tracked dependency files, and use an example environment file instead of committed credentials.
-
-[Mustafa Sarwari](https://github.com/mustafa-sarwari)
+[Mustafa Sarwari](https://github.com/mustafa-sarwari) — junior full-stack developer building practical frontend and backend skills.
