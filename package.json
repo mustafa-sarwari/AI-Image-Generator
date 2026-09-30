@@ -4,8 +4,10 @@
   "description": "This tool uses the free Hugging Face API to generate AI images based on a prompt, selected model, number of images, and aspect ratio. It also includes a download option for saving the generated images and supports both light and dark mode.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "node --test test/api.test.cjs",
+    "start": "node server.js",
+    "start:api": "node server.js",
+    "test:api": "node --test server/*.test.cjs test/api.test.cjs"
   },
   "repository": {
     "type": "git",
@@ -25,5 +27,8 @@
     "express": "^5.1.0",
     "fetch": "^1.1.0",
     "node-fetch": "^2.7.0"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

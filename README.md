@@ -1,48 +1,45 @@
-# AI Image Generator — Prototype
+# AI image generator — full-stack project
 
-A JavaScript and Express prototype for a prompt-based image generation interface. The browser UI is served from `public/`; the backend is intended to call a Hugging Face inference endpoint.
+Generate images through an authenticated provider route and keep successful generation metadata in your account.
 
-## Stack
+**Frontend:** HTML, CSS, and JavaScript. **Backend:** Node.js 24, Express provider route, HTTP API, SQLite, and account sessions.
 
-HTML, CSS, JavaScript, Node.js, Express, dotenv, and node-fetch.
+The authenticated Express route validates prompt, model, and dimensions, checks image content types, limits provider bytes to 20 MiB, and applies a timeout. Successful history records store prompt, model, dimensions, byte count, and duration. Image bytes are displayed/downloaded by the browser and are not permanently stored on the server.
 
-## Local setup
-
-```bash
-git clone https://github.com/mustafa-sarwari/AI-Image-Generator.git
-cd AI-Image-Generator
-npm install
-```
-
-Configure your local `config/.env` with the variable read by the current server:
-
-```dotenv
-api_KEY=your_hugging_face_token
-```
-
-Keep credentials local and out of commits.
+## Run locally
 
 ```bash
-npm start
+npm ci
+cp config/.env.example config/.env
+# Set HF_TOKEN in config/.env
+npm run start:api
 ```
 
-The server listens at `http://localhost:3000`.
+Open <http://localhost:3000>, choose **Sign in · Account**, and create your local owner account. **My workspace** opens the stored workflows. The first account manages owner-only resources; later accounts receive member access and private account data.
 
-## Current limitations
+## Implementation
 
-- The server reads the upstream response into an array buffer but does not send those bytes in its successful response. End-to-end image generation is therefore incomplete.
-- The request handler is currently named `/api/gererate` in server.js.
-- The upstream integration, model availability, and request format need verification before the project is presented as working.
-- The existing npm test command is a placeholder, not an automated test suite.
+- Salted scrypt password hashes, rotated HttpOnly sessions, seven-day expiry, and owner/member roles.
+- SQLite-backed `generations` workflows with access checks and server-side validation.
+- Connected account screens for saved records, search, paging, and activity; resource permissions control available actions.
+- Transactional writes, retry keys, version-aware edits to mutable records, bounded requests, and protected server files.
 
-## Code organization
+[Routes, storage design, and access rules](docs/backend.md) · [Workspace preview](docs/workspace-preview.jpg)
 
-- `public/`: browser interface, scripts, and styles
-- `server.js`: static server and inference request handler
-- `config/`: local configuration location
+![Account workspace](docs/workspace-preview.jpg)
 
-## Next steps
+## Verification
 
-Complete the response path, handle upstream failures, validate request inputs, remove tracked dependency files, and use an example environment file instead of committed credentials.
+`npm run test:api` passes **3 backend tests**, covering account security, session expiry/persistence, access control, validation, and the repository workflow.
 
-[Mustafa Sarwari](https://github.com/mustafa-sarwari)
+The account/resource flow passes browser checks at 375px and 1280px without page JavaScript errors or horizontal overflow in those flows. [GitHub Actions](.github/workflows/fullstack.yml) runs backend checks on pushes and pull requests.
+
+## Provider setup
+
+Keep `HF_TOKEN` on the server with inference permissions and any required model access. Frontend options match the backend allowlist. A supported provider/model and working credential are required for live generation; tests use mocked responses. [Provider documentation](https://huggingface.co/docs/inference-providers/providers/hf-inference).
+
+## Project context
+
+[Mustafa Sarwari](https://github.com/mustafa-sarwari) — junior full-stack developer building deeper frontend integration, server validation, authentication, database, and testing skills. The HTTP/account workspace foundation is reused across these portfolio projects; each project’s domain behavior is described above. Original community content, educational fixtures, and licenses remain attributed.
+
+A Node runtime is required for accounts, persistence, provider proxies, and webhooks. Static previews show frontend assets. Demonstration orders do not process payments; stored requests are not emailed. Live provider/store credentials have not been exercised by the fixture tests.
