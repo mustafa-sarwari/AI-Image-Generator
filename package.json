@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "node --test test/api.test.cjs",
-    "start": "node server.js"
+    "start": "node server.js",
+    "start:api": "node server.js",
+    "test:api": "node --test server/*.test.cjs test/api.test.cjs"
   },
   "repository": {
     "type": "git",

@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
+<script>
+if(location.protocol!=='file:'&&!location.hostname.endsWith('.github.io')){
+ const enableAccount=()=>{const s=document.createElement('script');s.src='/account.js';document.head.append(s);};
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enableAccount,{once:true});else enableAccount();
+}
+</script>
 </head>
 <body>
     <div class="container">
@@ -48,7 +54,7 @@
 
                             <!-- <option value="stabilityai/stable-diffusion-2-1">Stable Diffusion-2-1</option>
  -->
-                            <option value="runwayml/stable-diffusion-v1-5">Runwayml / Stable Diffusion-v1-5</option>
+                            <option value="stabilityai/stable-diffusion-3-medium-diffusers">Stable Diffusion 3 Medium</option>
                         </select>
                     </div>
 
